@@ -11,4 +11,5 @@
     <string name="indoor_demo_description">Demonstrates how to use the Indoor API.</string>
     <string name="indoor_demo_label">Indoor</string>
     <string name="toggle_level_picker">Toggle Level Picker</string>
+    <string name="live_map">Live Map</string>
 </resources>

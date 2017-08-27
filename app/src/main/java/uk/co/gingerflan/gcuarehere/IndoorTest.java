@@ -70,7 +70,7 @@ public class IndoorTest extends AppCompatActivity implements OnMapReadyCallback 
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(gcu));
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom((gcu), 18));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom((gcu), 20));
     }
 
     /**
