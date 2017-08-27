@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -118,7 +119,7 @@ public class GooglePlayServicesActivity extends AppCompatActivity implements Goo
     public void onConnectionFailed(ConnectionResult result) {
         Log.i(TAG,  "GoogleApiClient connection failed: " + result.toString());
         if (!result.hasResolution()) {
-            GooglePlayServicesUtil.getErrorDialog(
+            GoogleApiAvailability.getErrorDialog(
                     result.getErrorCode(), this, 0, new OnCancelListener() {
                 @Override
                 public void onCancel (DialogInterface dialog){
