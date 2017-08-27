@@ -16,6 +16,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick (View view) {
-        startActivity(new Intent("uk.co.gingerflan.gcuarehere.GooglePlayServicesActivity"));
+        startActivity(new Intent(this, IndoorTest.class));
     }
 }
