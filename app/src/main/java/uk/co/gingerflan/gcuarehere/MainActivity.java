@@ -1,5 +1,8 @@
 package uk.co.gingerflan.gcuarehere;
 
+
+import android.support.v4.app.ActivityCompat;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,20 +17,49 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button5 = (Button) findViewById(R.id.button5);
-        button5.setOnClickListener(new View.OnClickListener() {
+        //set permissions for fused location provider api (JED)
+
+
+
+
+        Button loginBtn = (Button) findViewById(R.id.loginBtn);
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, MapsActivity.class));
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
         });
-        Button button2 = (Button) findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener() {
+        Button indoorMapBtn = (Button) findViewById(R.id.indoorMapBtn);
+        indoorMapBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, IndoorTest.class));
             }
         });
 
+        Button liveMapBtn = (Button) findViewById(R.id.liveMapBtn);
+        liveMapBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, MapsActivity.class));
+            }
+        });
+
+    //   example of navigation to new Activity (screen) via a button interface (JED)
+
+        Button getLastLocBtn = (Button) findViewById(R.id.getLastLocBtn);
+        getLastLocBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, MoreMapsActivity.class));
+            }
+        });
+
+        Button styleMapBtn = (Button) findViewById(R.id.styleMapBtn);
+        styleMapBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, StyledMap.class));
+            }
+        });
     }
 
 
-}
+    }
+
+

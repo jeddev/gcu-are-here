@@ -18,12 +18,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 
-
-public class GooglePlayServicesActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
-
-
+public class GooglePlayServicesActivity extends AppCompatActivity
 
 {
     protected static final int REQUEST_CODE_RESOLUTION = 1;
@@ -38,113 +36,28 @@ public class GooglePlayServicesActivity extends AppCompatActivity implements Goo
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
-            if (savedInstanceState != null) {
-                mIsInResolution = savedInstanceState.getBoolean(KEY_IN_RESOLUTION, false);
-            }
         setContentView(R.layout.activity_google_play_services);
 
         myTextView = (TextView) findViewById(R.id.textView);
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                      Log.e (TAG, "PUt some t ex in" + location);
+                        if (location != null) {
+                            myTextView.setText("Latitude: "+ location.getLatitude()
+                                    + "\nLongitude: " + location.getLongitude());
+                        }
+                    }
+                });
+
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-        }
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    protected void onStop(){
-            if (mGoogleApiClient !=null){
-                mGoogleApiClient.disconnect();
-            }
-            super.onStop();
-     }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(KEY_IN_RESOLUTION, mIsInResolution);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case REQUEST_CODE_RESOLUTION:
-              retryConnecting();
-                break;
-        }
-    }
-
-    private void retryConnecting() {
-        mIsInResolution = false;
-        if (mGoogleApiClient.isConnecting()){
-            mGoogleApiClient.connect();
-        }
-    }
-
-    @Override
-    public void onConnected(Bundle connectionHint) {
-        Log.i(TAG, "GoogleApiClient connected");
-        myLastLocation =
-                LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (myLastLocation != null) {
-            myTextView.setText("Latitude: "+ myLastLocation.getLatitude()
-            + "\nLongtitude: " + myLastLocation.getLongitude());
-        } else {
-            Toast.makeText(this, "Location data not available",
-                    Toast.LENGTH_LONG) .show();
-        }
-    }
-
-    @Override
-    public void onConnectionSuspended(int cause) {
-        Log.i(TAG, "GoogleApiClient connection suspended");
-        retryConnecting();
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult result) {
-        Log.i(TAG,  "GoogleApiClient connection failed: " + result.toString());
-        if (!result.hasResolution()) {
-            GooglePlayServicesUtil.getErrorDialog(
-                    result.getErrorCode(), this, 0, new OnCancelListener() {
-                @Override
-                public void onCancel (DialogInterface dialog){
-                    retryConnecting();
-                }
-            }).show();
-        return;
-    }
-    if (mIsInResolution) {
-        return;
-    }
-    mIsInResolution = true;
-        try{
-            result.startResolutionForResult(this, REQUEST_CODE_RESOLUTION);
-        } catch (SendIntentException e) {
-            Log.e(TAG, "Exception while starting resolution activity", e);
-            retryConnecting();
-        }
-}
-
-    protected void createLocationRequest() {
-        myLocationRequest = new LocationRequest();
-        myLocationRequest.setInterval(5000);
-        myLocationRequest.setFastestInterval(1000);
-        myLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-    }
 }
 
 

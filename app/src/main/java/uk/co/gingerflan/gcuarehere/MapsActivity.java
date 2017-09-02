@@ -2,6 +2,7 @@ package uk.co.gingerflan.gcuarehere;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -11,7 +12,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
@@ -45,11 +46,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .position(gcu)
                 .title("GCU Are Here")
                 .alpha(0.6f)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(gcu));
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom((gcu), 20));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom((gcu), 14));
     }
 
 }

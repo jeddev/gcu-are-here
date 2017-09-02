@@ -22,14 +22,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.IndoorBuilding;
 import com.google.android.gms.maps.model.IndoorLevel;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+
 
 
 import android.os.Bundle;
@@ -44,8 +39,10 @@ import java.util.List;
  */
 public class IndoorTest extends AppCompatActivity implements OnMapReadyCallback {
 
+    //declare Google Map interface (JED)
     private GoogleMap mMap;
 
+    //show levels of indoor building (JED)
     private boolean showLevelPicker = true;
 
     @Override
@@ -70,7 +67,7 @@ public class IndoorTest extends AppCompatActivity implements OnMapReadyCallback 
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(gcu));
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom((gcu), 20));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom((gcu), 19));
     }
 
     /**
